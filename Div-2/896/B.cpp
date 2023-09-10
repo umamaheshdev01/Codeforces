@@ -17,6 +17,7 @@ void solve()
 
     vector<pair<ll,ll>> t;
 
+
     for(ll i=0;i<n;i++)
     {
          ll p,q;
@@ -24,10 +25,17 @@ void solve()
          t.push_back({p,q});
     }
 
+    
+    if(a<=k && b<=k)
+    {
+        cout<<0<<endl;
+        return;
+    }
+
     ll ans1= distance(t[a-1],t[b-1]);
 
-    ll min1 = INT_MAX;
-    ll min2 = INT_MAX;
+    ll min1 = 1e15;
+    ll min2 = 1e15;
 
     for(ll i=0;i<k;i++)
     {

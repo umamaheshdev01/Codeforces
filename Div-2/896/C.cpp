@@ -14,35 +14,45 @@ void solve()
     int m,n;
     cin>>m>>n;
 
-    vector<int> k;
+    vector<int> p;
+
     for(int i=0;i<n;i++)
     {
-        k.push_back(i);
+        p.push_back(i);
     }
 
     if(n==1)
     {
-        cout<<0<<endl;
-    }
-    else if(m>=n)
-    {
-        cout<<n<<endl;
-    }
-    else
-    {
-        cout<<m+1<<endl;
+        for(int i=0;i<=m;i++)
+        {
+            cout<<0<<endl;
+        }
+        return;
     }
 
-
-    for(int i=0;i<m;i++)
+    cout<<min(m+1,n)<<endl;
+    
+    int i=0;
+    for(;i<m-n+1;i++)
     {
-        for(auto x: k)
+        for(auto x:p)
         {
             cout<<x<<" ";
         }
         cout<<endl;
-        rotate(k);
     }
+
+    for(;i<m;i++)
+    {
+        rotate(p);
+        for(auto x:p)
+        {
+            cout<<x<<" ";
+        }
+        cout<<endl;
+    }
+
+
 }
 
 int main()
