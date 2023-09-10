@@ -33,7 +33,7 @@ void solve()
     cout<<min(m+1,n)<<endl;
     
     int i=0;
-    for(;i<m-n+1;i++)
+    for(;i<=m-n+1;i++)
     {
         for(auto x:p)
         {
