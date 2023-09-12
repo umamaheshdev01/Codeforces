@@ -4,43 +4,44 @@ typedef long long ll;
 
 
 
-
-bool checkpow(ll x)
+ll next_powert(ll x)
 {
-    return x && (!(x&(x-1)));
+    ll c = 0;
+
+    while(x)
+    {
+        c++;
+        x>>=1;
+    }
+
+    return 1<<c;
 }
 
-bool check(ll k,unordered_map<ll,ll> &m)
+bool checkup(ll x,pair<ll,ll> &ff)
 {
-    vector<int> bin;
+    ll k = next_powert(x);
+    
+    ll p =k;
+
 
     while(k)
     {
-        if(k%2==0)
+        if(p-k==x)
         {
-            bin.push_back(0);
-        }
-        else
-        {
-            bin.push_back(1);
+            ff.first=p;
+            ff.second=k;
+            return true;
         }
 
         k/=2;
     }
 
-    for(int i=0;i<bin.size();i++)
-    {
-        if(m[pow(2,bin[i])]>=1)
-        {
-            m[pow(2,bin[i])]--;
-        }
-        else{
-            return false;
-        }
-    }
-
-    return true;
+    return false;
 }
+
+
+
+
 
 void solve()
 {
@@ -65,47 +66,52 @@ void solve()
 
     ll mid = sum/n;
     
-    unordered_map<ll,ll> m;
-
-
-    for(ll i=0;i<n;i++)
-    {
-        if(p[i]>mid)
-        {
-            ll dif = p[i] - mid;
-
-            if(checkpow(dif))
-            {
-                m[dif]++;
-            }
-            else
-            {
-                cout<<"NO"<<endl;
-                return;
-            }
-        }
-    }
+    
+     unordered_map<ll,ll> m;
 
     for(ll i=0;i<n;i++)
     {
-        if(p[i]<mid)
-        {
-            ll need = mid - p[i];
+       int diff = abs(p[i]-mid);
 
-            if(check(need,m))
-            {
-                continue;
-            }
-            else
-            {
-                cout<<"NO"<<endl;
-                return;
-            }
+       if(diff==0)
+       {
+        continue;
+       }
+
+       pair<ll,ll> ff;
+
+       if(!checkup(diff,ff))
+       {
+          cout<<"NO"<<endl;
+          return;
+       }
+       else
+       {
+          if(p[i]>mid)
+          {
+             m[ff.first]++;
+             m[ff.second]--;
+          }
+          else{
+            m[ff.first]--;
+            m[ff.second]++;
+          }
+          
+       }
+    }
+
+
+    for(auto x:m)
+    {
+        if(x.second !=0)
+        {
+            cout<<"NO"<<endl;
+            return;
         }
     }
-   
-    cout<<"YES"<<endl;
 
+    
+cout<<"YES"<<endl;
 
 
 
