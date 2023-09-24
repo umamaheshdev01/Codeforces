@@ -41,13 +41,12 @@ void solve()
     cin>>m>>n;
 
     vector<int> v(m+1,0);
+    vector<int> ff(m+1,0);
 
     for(int i=1;i<=m;i++)
     {
         cin>>v[i];
     }
-
-    
 
     if(n==1)
     {
@@ -68,10 +67,14 @@ void solve()
         vector<int> p;
         p.push_back(i);
 
-        for(int i=1;i<n;i++)
+        for(int j=1;j<n;j++)
         {
             p.push_back(v[p.back()]);
+            ff[i+j-1]=v[p.back()];
+            
         }
+
+        
 
         
         
